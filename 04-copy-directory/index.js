@@ -5,7 +5,11 @@ const filesFolder = path.resolve(__dirname, 'files');
 const filesCopyFolder = path.resolve(__dirname, 'files-copy');
 
 fs.access(filesCopyFolder, async (err) => {
-  if (err) console.log(err);
+  if (err) {
+    fs.promises.mkdir(filesCopyFolder, (err) => {
+      if (err) console.log(err);
+    });
+  }
 
   await fs.promises.rm(filesCopyFolder, { recursive: true, force: true });
   await fs.promises.mkdir(filesCopyFolder, { recursive: true });
